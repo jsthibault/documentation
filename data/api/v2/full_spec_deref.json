@@ -17431,6 +17431,9 @@
             "type": "string"
           }
         },
+        "required": [
+          "arn"
+        ],
         "type": "object"
       },
       "AwsOnDemandCreateData": {
@@ -17445,6 +17448,9 @@
                 "type": "string"
               }
             },
+            "required": [
+              "arn"
+            ],
             "type": "object"
           },
           "type": {
@@ -17481,6 +17487,9 @@
                     "type": "string"
                   }
                 },
+                "required": [
+                  "arn"
+                ],
                 "type": "object"
               },
               "type": {
@@ -17733,6 +17742,12 @@
             "type": "boolean"
           }
         },
+        "required": [
+          "lambda",
+          "sensitive_data",
+          "vuln_containers_os",
+          "vuln_host_os"
+        ],
         "type": "object"
       },
       "AwsScanOptionsCreateData": {
@@ -17762,6 +17777,12 @@
                 "type": "boolean"
               }
             },
+            "required": [
+              "lambda",
+              "sensitive_data",
+              "vuln_containers_os",
+              "vuln_host_os"
+            ],
             "type": "object"
           },
           "id": {
@@ -17819,6 +17840,12 @@
                     "type": "boolean"
                   }
                 },
+                "required": [
+                  "lambda",
+                  "sensitive_data",
+                  "vuln_containers_os",
+                  "vuln_host_os"
+                ],
                 "type": "object"
               },
               "id": {
@@ -242376,6 +242403,12 @@
                             "type": "boolean"
                           }
                         },
+                        "required": [
+                          "lambda",
+                          "sensitive_data",
+                          "vuln_containers_os",
+                          "vuln_host_os"
+                        ],
                         "type": "object"
                       },
                       "id": {
@@ -243108,7 +243141,7 @@
         }
       },
       "post": {
-        "description": "Trigger the scan of an AWS resource with a high priority.",
+        "description": "Trigger the scan of an AWS resource with a high priority. Agentless scanning must be activated for the AWS account containing the resource to scan.",
         "operationId": "CreateAwsOnDemandTask",
         "requestBody": {
           "content": {
@@ -243128,6 +243161,9 @@
                             "type": "string"
                           }
                         },
+                        "required": [
+                          "arn"
+                        ],
                         "type": "object"
                       },
                       "type": {
@@ -243328,7 +243364,7 @@
     "/api/v2/agentless_scanning/ondemand/aws/{task_id}": {
       "get": {
         "description": "Fetch the data of a specific on demand task.",
-        "operationId": "RetrieveAwsOnDemandTask",
+        "operationId": "GetAwsOnDemandTask",
         "parameters": [
           {
             "description": "The UUID of the task.",
@@ -447084,7 +447120,7 @@
       "name": "Action Connection"
     },
     {
-      "description": "Datadog Agentless Scanning provides visibility into risks and vulnerabilities\nwithin your hosts, running containers, and serverless functions—all without\nrequiring teams to install Agents on every host or where Agents cannot be installed.\nGo to https://www.datadoghq.com/blog/agentless-scanning/ to learn more.",
+      "description": "Datadog Agentless Scanning provides visibility into risks and vulnerabilities\nwithin your hosts, running containers, and serverless functions—all without\nrequiring teams to install Agents on every host or where Agents cannot be installed.\nAgentless offers also Sensitive Data Scanning capabilities on your storage.\nGo to https://www.datadoghq.com/blog/agentless-scanning/ to learn more.",
       "name": "Agentless Scanning"
     },
     {
