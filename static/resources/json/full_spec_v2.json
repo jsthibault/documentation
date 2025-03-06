@@ -56395,6 +56395,108 @@
           "DATATRANSFORM"
         ]
       },
+      "DatadogAgentSource": {
+        "description": "A Datadog Agent source component.",
+        "properties": {
+          "id": {
+            "description": "The unique ID of the source.",
+            "example": "source-0",
+            "type": "string"
+          },
+          "tls": {
+            "description": "TLS settings",
+            "properties": {
+              "ca_file": {
+                "description": "CA file",
+                "example": "my_ca_file",
+                "type": "string"
+              },
+              "crt_file": {
+                "description": "CRT file",
+                "example": "my_crt_file",
+                "type": "string"
+              },
+              "key_file": {
+                "description": "Key file",
+                "example": "my_key_file",
+                "type": "string"
+              }
+            },
+            "required": [
+              "crt_file"
+            ],
+            "type": "object"
+          },
+          "type": {
+            "default": "datadog_agent",
+            "description": "The type of source.",
+            "enum": [
+              "datadog_agent"
+            ],
+            "example": "datadog_agent",
+            "type": "string",
+            "x-enum-varnames": [
+              "DATADOG_AGENT"
+            ]
+          }
+        },
+        "required": [
+          "id",
+          "type"
+        ],
+        "type": "object"
+      },
+      "DatadogAgentSourceType": {
+        "default": "datadog_agent",
+        "description": "The type of source.",
+        "enum": [
+          "datadog_agent"
+        ],
+        "example": "datadog_agent",
+        "type": "string",
+        "x-enum-varnames": [
+          "DATADOG_AGENT"
+        ]
+      },
+      "DatadogLogsDestination": {
+        "description": "A Datadog Logs destination component.",
+        "properties": {
+          "id": {
+            "description": "The unique ID of the destination.",
+            "example": "destination-0",
+            "type": "string"
+          },
+          "type": {
+            "default": "datadog_logs",
+            "description": "The type of destination.",
+            "enum": [
+              "datadog_logs"
+            ],
+            "example": "datadog_logs",
+            "type": "string",
+            "x-enum-varnames": [
+              "DATADOG_LOGS"
+            ]
+          }
+        },
+        "required": [
+          "id",
+          "type"
+        ],
+        "type": "object"
+      },
+      "DatadogLogsDestinationType": {
+        "default": "datadog_logs",
+        "description": "The type of destination.",
+        "enum": [
+          "datadog_logs"
+        ],
+        "example": "datadog_logs",
+        "type": "string",
+        "x-enum-varnames": [
+          "DATADOG_LOGS"
+        ]
+      },
       "Date": {
         "description": "Date as Unix timestamp in milliseconds.",
         "example": 1722439510282,
@@ -75170,6 +75272,49 @@
           }
         },
         "type": "object"
+      },
+      "FilterProcessor": {
+        "description": "A filter processor component.",
+        "properties": {
+          "id": {
+            "description": "The unique ID of the processor.",
+            "example": "",
+            "type": "string"
+          },
+          "include": {
+            "description": "Inclusion filter for the processor.",
+            "example": "",
+            "type": "string"
+          },
+          "type": {
+            "description": "The type of processor.",
+            "enum": [
+              "filter"
+            ],
+            "example": "filter",
+            "type": "string",
+            "x-enum-varnames": [
+              "FILTER"
+            ]
+          }
+        },
+        "required": [
+          "id",
+          "type",
+          "include"
+        ],
+        "type": "object"
+      },
+      "FilterProcessorType": {
+        "description": "The type of processor.",
+        "enum": [
+          "filter"
+        ],
+        "example": "filter",
+        "type": "string",
+        "x-enum-varnames": [
+          "FILTER"
+        ]
       },
       "Finding": {
         "description": "A single finding without the message and resource configuration.",
@@ -144987,6 +145132,704 @@
           "PERMISSIONS"
         ]
       },
+      "Pipeline": {
+        "description": "A pipeline definition.",
+        "properties": {
+          "data": {
+            "description": "The definition of `PipelineData` object.",
+            "properties": {
+              "attributes": {
+                "description": "pipeline attributes",
+                "properties": {
+                  "config": {
+                    "description": "pipeline config",
+                    "properties": {
+                      "destinations": {
+                        "description": "The `PipelineDataAttributesConfig` `destinations`.",
+                        "example": [],
+                        "items": {
+                          "description": "The `config` `destinations`.",
+                          "oneOf": [
+                            {
+                              "description": "A Datadog Logs destination component.",
+                              "properties": {
+                                "id": {
+                                  "description": "The unique ID of the destination.",
+                                  "example": "destination-0",
+                                  "type": "string"
+                                },
+                                "type": {
+                                  "default": "datadog_logs",
+                                  "description": "The type of destination.",
+                                  "enum": [
+                                    "datadog_logs"
+                                  ],
+                                  "example": "datadog_logs",
+                                  "type": "string",
+                                  "x-enum-varnames": [
+                                    "DATADOG_LOGS"
+                                  ]
+                                }
+                              },
+                              "required": [
+                                "id",
+                                "type"
+                              ],
+                              "type": "object"
+                            }
+                          ]
+                        },
+                        "type": "array"
+                      },
+                      "processors": {
+                        "description": "The `PipelineDataAttributesConfig` `processors`.",
+                        "example": [],
+                        "items": {
+                          "description": "The `config` `processors`.",
+                          "oneOf": [
+                            {
+                              "description": "A filter processor component.",
+                              "properties": {
+                                "id": {
+                                  "description": "The unique ID of the processor.",
+                                  "example": "",
+                                  "type": "string"
+                                },
+                                "include": {
+                                  "description": "Inclusion filter for the processor.",
+                                  "example": "",
+                                  "type": "string"
+                                },
+                                "type": {
+                                  "description": "The type of processor.",
+                                  "enum": [
+                                    "filter"
+                                  ],
+                                  "example": "filter",
+                                  "type": "string",
+                                  "x-enum-varnames": [
+                                    "FILTER"
+                                  ]
+                                }
+                              },
+                              "required": [
+                                "id",
+                                "type",
+                                "include"
+                              ],
+                              "type": "object"
+                            }
+                          ]
+                        },
+                        "type": "array"
+                      },
+                      "sources": {
+                        "description": "The `PipelineDataAttributesConfig` `sources`.",
+                        "example": [],
+                        "items": {
+                          "description": "The `config` `sources`.",
+                          "oneOf": [
+                            {
+                              "description": "A Datadog Agent source component.",
+                              "properties": {
+                                "id": {
+                                  "description": "The unique ID of the source.",
+                                  "example": "source-0",
+                                  "type": "string"
+                                },
+                                "tls": {
+                                  "description": "TLS settings",
+                                  "properties": {
+                                    "ca_file": {
+                                      "description": "CA file",
+                                      "example": "my_ca_file",
+                                      "type": "string"
+                                    },
+                                    "crt_file": {
+                                      "description": "CRT file",
+                                      "example": "my_crt_file",
+                                      "type": "string"
+                                    },
+                                    "key_file": {
+                                      "description": "Key file",
+                                      "example": "my_key_file",
+                                      "type": "string"
+                                    }
+                                  },
+                                  "required": [
+                                    "crt_file"
+                                  ],
+                                  "type": "object"
+                                },
+                                "type": {
+                                  "default": "datadog_agent",
+                                  "description": "The type of source.",
+                                  "enum": [
+                                    "datadog_agent"
+                                  ],
+                                  "example": "datadog_agent",
+                                  "type": "string",
+                                  "x-enum-varnames": [
+                                    "DATADOG_AGENT"
+                                  ]
+                                }
+                              },
+                              "required": [
+                                "id",
+                                "type"
+                              ],
+                              "type": "object"
+                            }
+                          ]
+                        },
+                        "type": "array"
+                      }
+                    },
+                    "required": [
+                      "sources",
+                      "processors",
+                      "destinations"
+                    ],
+                    "type": "object"
+                  },
+                  "name": {
+                    "description": "The pipeline name.",
+                    "example": "",
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "name",
+                  "config"
+                ],
+                "type": "object"
+              },
+              "id": {
+                "description": "Pipeline ID",
+                "example": "e8890e15-053e-4d34-9404-1b41b9e403e2",
+                "type": "string"
+              },
+              "type": {
+                "description": "The type of the resource. The value should always be pipeline.",
+                "example": "pipeline",
+                "type": "string"
+              }
+            },
+            "required": [
+              "type",
+              "attributes"
+            ],
+            "type": "object"
+          }
+        },
+        "required": [
+          "data"
+        ],
+        "type": "object"
+      },
+      "PipelineData": {
+        "description": "The definition of `PipelineData` object.",
+        "properties": {
+          "attributes": {
+            "description": "pipeline attributes",
+            "properties": {
+              "config": {
+                "description": "pipeline config",
+                "properties": {
+                  "destinations": {
+                    "description": "The `PipelineDataAttributesConfig` `destinations`.",
+                    "example": [],
+                    "items": {
+                      "description": "The `config` `destinations`.",
+                      "oneOf": [
+                        {
+                          "description": "A Datadog Logs destination component.",
+                          "properties": {
+                            "id": {
+                              "description": "The unique ID of the destination.",
+                              "example": "destination-0",
+                              "type": "string"
+                            },
+                            "type": {
+                              "default": "datadog_logs",
+                              "description": "The type of destination.",
+                              "enum": [
+                                "datadog_logs"
+                              ],
+                              "example": "datadog_logs",
+                              "type": "string",
+                              "x-enum-varnames": [
+                                "DATADOG_LOGS"
+                              ]
+                            }
+                          },
+                          "required": [
+                            "id",
+                            "type"
+                          ],
+                          "type": "object"
+                        }
+                      ]
+                    },
+                    "type": "array"
+                  },
+                  "processors": {
+                    "description": "The `PipelineDataAttributesConfig` `processors`.",
+                    "example": [],
+                    "items": {
+                      "description": "The `config` `processors`.",
+                      "oneOf": [
+                        {
+                          "description": "A filter processor component.",
+                          "properties": {
+                            "id": {
+                              "description": "The unique ID of the processor.",
+                              "example": "",
+                              "type": "string"
+                            },
+                            "include": {
+                              "description": "Inclusion filter for the processor.",
+                              "example": "",
+                              "type": "string"
+                            },
+                            "type": {
+                              "description": "The type of processor.",
+                              "enum": [
+                                "filter"
+                              ],
+                              "example": "filter",
+                              "type": "string",
+                              "x-enum-varnames": [
+                                "FILTER"
+                              ]
+                            }
+                          },
+                          "required": [
+                            "id",
+                            "type",
+                            "include"
+                          ],
+                          "type": "object"
+                        }
+                      ]
+                    },
+                    "type": "array"
+                  },
+                  "sources": {
+                    "description": "The `PipelineDataAttributesConfig` `sources`.",
+                    "example": [],
+                    "items": {
+                      "description": "The `config` `sources`.",
+                      "oneOf": [
+                        {
+                          "description": "A Datadog Agent source component.",
+                          "properties": {
+                            "id": {
+                              "description": "The unique ID of the source.",
+                              "example": "source-0",
+                              "type": "string"
+                            },
+                            "tls": {
+                              "description": "TLS settings",
+                              "properties": {
+                                "ca_file": {
+                                  "description": "CA file",
+                                  "example": "my_ca_file",
+                                  "type": "string"
+                                },
+                                "crt_file": {
+                                  "description": "CRT file",
+                                  "example": "my_crt_file",
+                                  "type": "string"
+                                },
+                                "key_file": {
+                                  "description": "Key file",
+                                  "example": "my_key_file",
+                                  "type": "string"
+                                }
+                              },
+                              "required": [
+                                "crt_file"
+                              ],
+                              "type": "object"
+                            },
+                            "type": {
+                              "default": "datadog_agent",
+                              "description": "The type of source.",
+                              "enum": [
+                                "datadog_agent"
+                              ],
+                              "example": "datadog_agent",
+                              "type": "string",
+                              "x-enum-varnames": [
+                                "DATADOG_AGENT"
+                              ]
+                            }
+                          },
+                          "required": [
+                            "id",
+                            "type"
+                          ],
+                          "type": "object"
+                        }
+                      ]
+                    },
+                    "type": "array"
+                  }
+                },
+                "required": [
+                  "sources",
+                  "processors",
+                  "destinations"
+                ],
+                "type": "object"
+              },
+              "name": {
+                "description": "The pipeline name.",
+                "example": "",
+                "type": "string"
+              }
+            },
+            "required": [
+              "name",
+              "config"
+            ],
+            "type": "object"
+          },
+          "id": {
+            "description": "Pipeline ID",
+            "example": "e8890e15-053e-4d34-9404-1b41b9e403e2",
+            "type": "string"
+          },
+          "type": {
+            "description": "The type of the resource. The value should always be pipeline.",
+            "example": "pipeline",
+            "type": "string"
+          }
+        },
+        "required": [
+          "type",
+          "attributes"
+        ],
+        "type": "object"
+      },
+      "PipelineDataAttributes": {
+        "description": "pipeline attributes",
+        "properties": {
+          "config": {
+            "description": "pipeline config",
+            "properties": {
+              "destinations": {
+                "description": "The `PipelineDataAttributesConfig` `destinations`.",
+                "example": [],
+                "items": {
+                  "description": "The `config` `destinations`.",
+                  "oneOf": [
+                    {
+                      "description": "A Datadog Logs destination component.",
+                      "properties": {
+                        "id": {
+                          "description": "The unique ID of the destination.",
+                          "example": "destination-0",
+                          "type": "string"
+                        },
+                        "type": {
+                          "default": "datadog_logs",
+                          "description": "The type of destination.",
+                          "enum": [
+                            "datadog_logs"
+                          ],
+                          "example": "datadog_logs",
+                          "type": "string",
+                          "x-enum-varnames": [
+                            "DATADOG_LOGS"
+                          ]
+                        }
+                      },
+                      "required": [
+                        "id",
+                        "type"
+                      ],
+                      "type": "object"
+                    }
+                  ]
+                },
+                "type": "array"
+              },
+              "processors": {
+                "description": "The `PipelineDataAttributesConfig` `processors`.",
+                "example": [],
+                "items": {
+                  "description": "The `config` `processors`.",
+                  "oneOf": [
+                    {
+                      "description": "A filter processor component.",
+                      "properties": {
+                        "id": {
+                          "description": "The unique ID of the processor.",
+                          "example": "",
+                          "type": "string"
+                        },
+                        "include": {
+                          "description": "Inclusion filter for the processor.",
+                          "example": "",
+                          "type": "string"
+                        },
+                        "type": {
+                          "description": "The type of processor.",
+                          "enum": [
+                            "filter"
+                          ],
+                          "example": "filter",
+                          "type": "string",
+                          "x-enum-varnames": [
+                            "FILTER"
+                          ]
+                        }
+                      },
+                      "required": [
+                        "id",
+                        "type",
+                        "include"
+                      ],
+                      "type": "object"
+                    }
+                  ]
+                },
+                "type": "array"
+              },
+              "sources": {
+                "description": "The `PipelineDataAttributesConfig` `sources`.",
+                "example": [],
+                "items": {
+                  "description": "The `config` `sources`.",
+                  "oneOf": [
+                    {
+                      "description": "A Datadog Agent source component.",
+                      "properties": {
+                        "id": {
+                          "description": "The unique ID of the source.",
+                          "example": "source-0",
+                          "type": "string"
+                        },
+                        "tls": {
+                          "description": "TLS settings",
+                          "properties": {
+                            "ca_file": {
+                              "description": "CA file",
+                              "example": "my_ca_file",
+                              "type": "string"
+                            },
+                            "crt_file": {
+                              "description": "CRT file",
+                              "example": "my_crt_file",
+                              "type": "string"
+                            },
+                            "key_file": {
+                              "description": "Key file",
+                              "example": "my_key_file",
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "crt_file"
+                          ],
+                          "type": "object"
+                        },
+                        "type": {
+                          "default": "datadog_agent",
+                          "description": "The type of source.",
+                          "enum": [
+                            "datadog_agent"
+                          ],
+                          "example": "datadog_agent",
+                          "type": "string",
+                          "x-enum-varnames": [
+                            "DATADOG_AGENT"
+                          ]
+                        }
+                      },
+                      "required": [
+                        "id",
+                        "type"
+                      ],
+                      "type": "object"
+                    }
+                  ]
+                },
+                "type": "array"
+              }
+            },
+            "required": [
+              "sources",
+              "processors",
+              "destinations"
+            ],
+            "type": "object"
+          },
+          "name": {
+            "description": "The pipeline name.",
+            "example": "",
+            "type": "string"
+          }
+        },
+        "required": [
+          "name",
+          "config"
+        ],
+        "type": "object"
+      },
+      "PipelineDataAttributesConfig": {
+        "description": "pipeline config",
+        "properties": {
+          "destinations": {
+            "description": "The `PipelineDataAttributesConfig` `destinations`.",
+            "example": [],
+            "items": {
+              "description": "The `config` `destinations`.",
+              "oneOf": [
+                {
+                  "description": "A Datadog Logs destination component.",
+                  "properties": {
+                    "id": {
+                      "description": "The unique ID of the destination.",
+                      "example": "destination-0",
+                      "type": "string"
+                    },
+                    "type": {
+                      "default": "datadog_logs",
+                      "description": "The type of destination.",
+                      "enum": [
+                        "datadog_logs"
+                      ],
+                      "example": "datadog_logs",
+                      "type": "string",
+                      "x-enum-varnames": [
+                        "DATADOG_LOGS"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "type"
+                  ],
+                  "type": "object"
+                }
+              ]
+            },
+            "type": "array"
+          },
+          "processors": {
+            "description": "The `PipelineDataAttributesConfig` `processors`.",
+            "example": [],
+            "items": {
+              "description": "The `config` `processors`.",
+              "oneOf": [
+                {
+                  "description": "A filter processor component.",
+                  "properties": {
+                    "id": {
+                      "description": "The unique ID of the processor.",
+                      "example": "",
+                      "type": "string"
+                    },
+                    "include": {
+                      "description": "Inclusion filter for the processor.",
+                      "example": "",
+                      "type": "string"
+                    },
+                    "type": {
+                      "description": "The type of processor.",
+                      "enum": [
+                        "filter"
+                      ],
+                      "example": "filter",
+                      "type": "string",
+                      "x-enum-varnames": [
+                        "FILTER"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "type",
+                    "include"
+                  ],
+                  "type": "object"
+                }
+              ]
+            },
+            "type": "array"
+          },
+          "sources": {
+            "description": "The `PipelineDataAttributesConfig` `sources`.",
+            "example": [],
+            "items": {
+              "description": "The `config` `sources`.",
+              "oneOf": [
+                {
+                  "description": "A Datadog Agent source component.",
+                  "properties": {
+                    "id": {
+                      "description": "The unique ID of the source.",
+                      "example": "source-0",
+                      "type": "string"
+                    },
+                    "tls": {
+                      "description": "TLS settings",
+                      "properties": {
+                        "ca_file": {
+                          "description": "CA file",
+                          "example": "my_ca_file",
+                          "type": "string"
+                        },
+                        "crt_file": {
+                          "description": "CRT file",
+                          "example": "my_crt_file",
+                          "type": "string"
+                        },
+                        "key_file": {
+                          "description": "Key file",
+                          "example": "my_key_file",
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "crt_file"
+                      ],
+                      "type": "object"
+                    },
+                    "type": {
+                      "default": "datadog_agent",
+                      "description": "The type of source.",
+                      "enum": [
+                        "datadog_agent"
+                      ],
+                      "example": "datadog_agent",
+                      "type": "string",
+                      "x-enum-varnames": [
+                        "DATADOG_AGENT"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "type"
+                  ],
+                  "type": "object"
+                }
+              ]
+            },
+            "type": "array"
+          }
+        },
+        "required": [
+          "sources",
+          "processors",
+          "destinations"
+        ],
+        "type": "object"
+      },
       "Powerpack": {
         "description": "Powerpacks are templated groups of dashboard widgets you can save from an existing dashboard and turn into reusable packs in the widget tray.",
         "properties": {
@@ -211049,6 +211892,30 @@
           "type": "array"
         },
         "type": "array"
+      },
+      "Tls": {
+        "description": "TLS settings",
+        "properties": {
+          "ca_file": {
+            "description": "CA file",
+            "example": "my_ca_file",
+            "type": "string"
+          },
+          "crt_file": {
+            "description": "CRT file",
+            "example": "my_crt_file",
+            "type": "string"
+          },
+          "key_file": {
+            "description": "Key file",
+            "example": "my_key_file",
+            "type": "string"
+          }
+        },
+        "required": [
+          "crt_file"
+        ],
+        "type": "object"
       },
       "TokenName": {
         "description": "Name for tokens.",
@@ -358100,6 +358967,1473 @@
         }
       }
     },
+    "/api/v2/remote_config/products/obs_pipelines/pipelines": {
+      "get": {
+        "description": "Retrieves a list of all configured observability pipelines.",
+        "operationId": "ListPipelines",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "description": "A pipeline definition.",
+                    "properties": {
+                      "data": {
+                        "description": "The definition of `PipelineData` object.",
+                        "properties": {
+                          "attributes": {
+                            "description": "pipeline attributes",
+                            "properties": {
+                              "config": {
+                                "description": "pipeline config",
+                                "properties": {
+                                  "destinations": {
+                                    "description": "The `PipelineDataAttributesConfig` `destinations`.",
+                                    "example": [],
+                                    "items": {
+                                      "description": "The `config` `destinations`.",
+                                      "oneOf": [
+                                        {
+                                          "description": "A Datadog Logs destination component.",
+                                          "properties": {
+                                            "id": {
+                                              "description": "The unique ID of the destination.",
+                                              "example": "destination-0",
+                                              "type": "string"
+                                            },
+                                            "type": {
+                                              "default": "datadog_logs",
+                                              "description": "The type of destination.",
+                                              "enum": [
+                                                "datadog_logs"
+                                              ],
+                                              "example": "datadog_logs",
+                                              "type": "string",
+                                              "x-enum-varnames": [
+                                                "DATADOG_LOGS"
+                                              ]
+                                            }
+                                          },
+                                          "required": [
+                                            "id",
+                                            "type"
+                                          ],
+                                          "type": "object"
+                                        }
+                                      ]
+                                    },
+                                    "type": "array"
+                                  },
+                                  "processors": {
+                                    "description": "The `PipelineDataAttributesConfig` `processors`.",
+                                    "example": [],
+                                    "items": {
+                                      "description": "The `config` `processors`.",
+                                      "oneOf": [
+                                        {
+                                          "description": "A filter processor component.",
+                                          "properties": {
+                                            "id": {
+                                              "description": "The unique ID of the processor.",
+                                              "example": "",
+                                              "type": "string"
+                                            },
+                                            "include": {
+                                              "description": "Inclusion filter for the processor.",
+                                              "example": "",
+                                              "type": "string"
+                                            },
+                                            "type": {
+                                              "description": "The type of processor.",
+                                              "enum": [
+                                                "filter"
+                                              ],
+                                              "example": "filter",
+                                              "type": "string",
+                                              "x-enum-varnames": [
+                                                "FILTER"
+                                              ]
+                                            }
+                                          },
+                                          "required": [
+                                            "id",
+                                            "type",
+                                            "include"
+                                          ],
+                                          "type": "object"
+                                        }
+                                      ]
+                                    },
+                                    "type": "array"
+                                  },
+                                  "sources": {
+                                    "description": "The `PipelineDataAttributesConfig` `sources`.",
+                                    "example": [],
+                                    "items": {
+                                      "description": "The `config` `sources`.",
+                                      "oneOf": [
+                                        {
+                                          "description": "A Datadog Agent source component.",
+                                          "properties": {
+                                            "id": {
+                                              "description": "The unique ID of the source.",
+                                              "example": "source-0",
+                                              "type": "string"
+                                            },
+                                            "tls": {
+                                              "description": "TLS settings",
+                                              "properties": {
+                                                "ca_file": {
+                                                  "description": "CA file",
+                                                  "example": "my_ca_file",
+                                                  "type": "string"
+                                                },
+                                                "crt_file": {
+                                                  "description": "CRT file",
+                                                  "example": "my_crt_file",
+                                                  "type": "string"
+                                                },
+                                                "key_file": {
+                                                  "description": "Key file",
+                                                  "example": "my_key_file",
+                                                  "type": "string"
+                                                }
+                                              },
+                                              "required": [
+                                                "crt_file"
+                                              ],
+                                              "type": "object"
+                                            },
+                                            "type": {
+                                              "default": "datadog_agent",
+                                              "description": "The type of source.",
+                                              "enum": [
+                                                "datadog_agent"
+                                              ],
+                                              "example": "datadog_agent",
+                                              "type": "string",
+                                              "x-enum-varnames": [
+                                                "DATADOG_AGENT"
+                                              ]
+                                            }
+                                          },
+                                          "required": [
+                                            "id",
+                                            "type"
+                                          ],
+                                          "type": "object"
+                                        }
+                                      ]
+                                    },
+                                    "type": "array"
+                                  }
+                                },
+                                "required": [
+                                  "sources",
+                                  "processors",
+                                  "destinations"
+                                ],
+                                "type": "object"
+                              },
+                              "name": {
+                                "description": "The pipeline name.",
+                                "example": "",
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "name",
+                              "config"
+                            ],
+                            "type": "object"
+                          },
+                          "id": {
+                            "description": "Pipeline ID",
+                            "example": "e8890e15-053e-4d34-9404-1b41b9e403e2",
+                            "type": "string"
+                          },
+                          "type": {
+                            "description": "The type of the resource. The value should always be pipeline.",
+                            "example": "pipeline",
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "type",
+                          "attributes"
+                        ],
+                        "type": "object"
+                      }
+                    },
+                    "required": [
+                      "data"
+                    ],
+                    "type": "object"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "A list of pipelines"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "429": {
+            "description": "Too Many Requests"
+          }
+        },
+        "summary": "Get all pipelines",
+        "tags": [
+          "Observability Pipelines"
+        ],
+        "x-menu-order": 1,
+        "x-undo": {
+          "type": "safe"
+        }
+      },
+      "post": {
+        "description": "Creates a new observability pipeline.",
+        "operationId": "CreatePipeline",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "description": "A pipeline definition.",
+                "properties": {
+                  "data": {
+                    "description": "The definition of `PipelineData` object.",
+                    "properties": {
+                      "attributes": {
+                        "description": "pipeline attributes",
+                        "properties": {
+                          "config": {
+                            "description": "pipeline config",
+                            "properties": {
+                              "destinations": {
+                                "description": "The `PipelineDataAttributesConfig` `destinations`.",
+                                "example": [],
+                                "items": {
+                                  "description": "The `config` `destinations`.",
+                                  "oneOf": [
+                                    {
+                                      "description": "A Datadog Logs destination component.",
+                                      "properties": {
+                                        "id": {
+                                          "description": "The unique ID of the destination.",
+                                          "example": "destination-0",
+                                          "type": "string"
+                                        },
+                                        "type": {
+                                          "default": "datadog_logs",
+                                          "description": "The type of destination.",
+                                          "enum": [
+                                            "datadog_logs"
+                                          ],
+                                          "example": "datadog_logs",
+                                          "type": "string",
+                                          "x-enum-varnames": [
+                                            "DATADOG_LOGS"
+                                          ]
+                                        }
+                                      },
+                                      "required": [
+                                        "id",
+                                        "type"
+                                      ],
+                                      "type": "object"
+                                    }
+                                  ]
+                                },
+                                "type": "array"
+                              },
+                              "processors": {
+                                "description": "The `PipelineDataAttributesConfig` `processors`.",
+                                "example": [],
+                                "items": {
+                                  "description": "The `config` `processors`.",
+                                  "oneOf": [
+                                    {
+                                      "description": "A filter processor component.",
+                                      "properties": {
+                                        "id": {
+                                          "description": "The unique ID of the processor.",
+                                          "example": "",
+                                          "type": "string"
+                                        },
+                                        "include": {
+                                          "description": "Inclusion filter for the processor.",
+                                          "example": "",
+                                          "type": "string"
+                                        },
+                                        "type": {
+                                          "description": "The type of processor.",
+                                          "enum": [
+                                            "filter"
+                                          ],
+                                          "example": "filter",
+                                          "type": "string",
+                                          "x-enum-varnames": [
+                                            "FILTER"
+                                          ]
+                                        }
+                                      },
+                                      "required": [
+                                        "id",
+                                        "type",
+                                        "include"
+                                      ],
+                                      "type": "object"
+                                    }
+                                  ]
+                                },
+                                "type": "array"
+                              },
+                              "sources": {
+                                "description": "The `PipelineDataAttributesConfig` `sources`.",
+                                "example": [],
+                                "items": {
+                                  "description": "The `config` `sources`.",
+                                  "oneOf": [
+                                    {
+                                      "description": "A Datadog Agent source component.",
+                                      "properties": {
+                                        "id": {
+                                          "description": "The unique ID of the source.",
+                                          "example": "source-0",
+                                          "type": "string"
+                                        },
+                                        "tls": {
+                                          "description": "TLS settings",
+                                          "properties": {
+                                            "ca_file": {
+                                              "description": "CA file",
+                                              "example": "my_ca_file",
+                                              "type": "string"
+                                            },
+                                            "crt_file": {
+                                              "description": "CRT file",
+                                              "example": "my_crt_file",
+                                              "type": "string"
+                                            },
+                                            "key_file": {
+                                              "description": "Key file",
+                                              "example": "my_key_file",
+                                              "type": "string"
+                                            }
+                                          },
+                                          "required": [
+                                            "crt_file"
+                                          ],
+                                          "type": "object"
+                                        },
+                                        "type": {
+                                          "default": "datadog_agent",
+                                          "description": "The type of source.",
+                                          "enum": [
+                                            "datadog_agent"
+                                          ],
+                                          "example": "datadog_agent",
+                                          "type": "string",
+                                          "x-enum-varnames": [
+                                            "DATADOG_AGENT"
+                                          ]
+                                        }
+                                      },
+                                      "required": [
+                                        "id",
+                                        "type"
+                                      ],
+                                      "type": "object"
+                                    }
+                                  ]
+                                },
+                                "type": "array"
+                              }
+                            },
+                            "required": [
+                              "sources",
+                              "processors",
+                              "destinations"
+                            ],
+                            "type": "object"
+                          },
+                          "name": {
+                            "description": "The pipeline name.",
+                            "example": "",
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "name",
+                          "config"
+                        ],
+                        "type": "object"
+                      },
+                      "id": {
+                        "description": "Pipeline ID",
+                        "example": "e8890e15-053e-4d34-9404-1b41b9e403e2",
+                        "type": "string"
+                      },
+                      "type": {
+                        "description": "The type of the resource. The value should always be pipeline.",
+                        "example": "pipeline",
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "type",
+                      "attributes"
+                    ],
+                    "type": "object"
+                  }
+                },
+                "required": [
+                  "data"
+                ],
+                "type": "object"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "A pipeline definition.",
+                  "properties": {
+                    "data": {
+                      "description": "The definition of `PipelineData` object.",
+                      "properties": {
+                        "attributes": {
+                          "description": "pipeline attributes",
+                          "properties": {
+                            "config": {
+                              "description": "pipeline config",
+                              "properties": {
+                                "destinations": {
+                                  "description": "The `PipelineDataAttributesConfig` `destinations`.",
+                                  "example": [],
+                                  "items": {
+                                    "description": "The `config` `destinations`.",
+                                    "oneOf": [
+                                      {
+                                        "description": "A Datadog Logs destination component.",
+                                        "properties": {
+                                          "id": {
+                                            "description": "The unique ID of the destination.",
+                                            "example": "destination-0",
+                                            "type": "string"
+                                          },
+                                          "type": {
+                                            "default": "datadog_logs",
+                                            "description": "The type of destination.",
+                                            "enum": [
+                                              "datadog_logs"
+                                            ],
+                                            "example": "datadog_logs",
+                                            "type": "string",
+                                            "x-enum-varnames": [
+                                              "DATADOG_LOGS"
+                                            ]
+                                          }
+                                        },
+                                        "required": [
+                                          "id",
+                                          "type"
+                                        ],
+                                        "type": "object"
+                                      }
+                                    ]
+                                  },
+                                  "type": "array"
+                                },
+                                "processors": {
+                                  "description": "The `PipelineDataAttributesConfig` `processors`.",
+                                  "example": [],
+                                  "items": {
+                                    "description": "The `config` `processors`.",
+                                    "oneOf": [
+                                      {
+                                        "description": "A filter processor component.",
+                                        "properties": {
+                                          "id": {
+                                            "description": "The unique ID of the processor.",
+                                            "example": "",
+                                            "type": "string"
+                                          },
+                                          "include": {
+                                            "description": "Inclusion filter for the processor.",
+                                            "example": "",
+                                            "type": "string"
+                                          },
+                                          "type": {
+                                            "description": "The type of processor.",
+                                            "enum": [
+                                              "filter"
+                                            ],
+                                            "example": "filter",
+                                            "type": "string",
+                                            "x-enum-varnames": [
+                                              "FILTER"
+                                            ]
+                                          }
+                                        },
+                                        "required": [
+                                          "id",
+                                          "type",
+                                          "include"
+                                        ],
+                                        "type": "object"
+                                      }
+                                    ]
+                                  },
+                                  "type": "array"
+                                },
+                                "sources": {
+                                  "description": "The `PipelineDataAttributesConfig` `sources`.",
+                                  "example": [],
+                                  "items": {
+                                    "description": "The `config` `sources`.",
+                                    "oneOf": [
+                                      {
+                                        "description": "A Datadog Agent source component.",
+                                        "properties": {
+                                          "id": {
+                                            "description": "The unique ID of the source.",
+                                            "example": "source-0",
+                                            "type": "string"
+                                          },
+                                          "tls": {
+                                            "description": "TLS settings",
+                                            "properties": {
+                                              "ca_file": {
+                                                "description": "CA file",
+                                                "example": "my_ca_file",
+                                                "type": "string"
+                                              },
+                                              "crt_file": {
+                                                "description": "CRT file",
+                                                "example": "my_crt_file",
+                                                "type": "string"
+                                              },
+                                              "key_file": {
+                                                "description": "Key file",
+                                                "example": "my_key_file",
+                                                "type": "string"
+                                              }
+                                            },
+                                            "required": [
+                                              "crt_file"
+                                            ],
+                                            "type": "object"
+                                          },
+                                          "type": {
+                                            "default": "datadog_agent",
+                                            "description": "The type of source.",
+                                            "enum": [
+                                              "datadog_agent"
+                                            ],
+                                            "example": "datadog_agent",
+                                            "type": "string",
+                                            "x-enum-varnames": [
+                                              "DATADOG_AGENT"
+                                            ]
+                                          }
+                                        },
+                                        "required": [
+                                          "id",
+                                          "type"
+                                        ],
+                                        "type": "object"
+                                      }
+                                    ]
+                                  },
+                                  "type": "array"
+                                }
+                              },
+                              "required": [
+                                "sources",
+                                "processors",
+                                "destinations"
+                              ],
+                              "type": "object"
+                            },
+                            "name": {
+                              "description": "The pipeline name.",
+                              "example": "",
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "name",
+                            "config"
+                          ],
+                          "type": "object"
+                        },
+                        "id": {
+                          "description": "Pipeline ID",
+                          "example": "e8890e15-053e-4d34-9404-1b41b9e403e2",
+                          "type": "string"
+                        },
+                        "type": {
+                          "description": "The type of the resource. The value should always be pipeline.",
+                          "example": "pipeline",
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "type",
+                        "attributes"
+                      ],
+                      "type": "object"
+                    }
+                  },
+                  "required": [
+                    "data"
+                  ],
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Pipeline created"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "429": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "API error response.",
+                  "properties": {
+                    "errors": {
+                      "description": "A list of errors.",
+                      "example": [
+                        "Bad Request"
+                      ],
+                      "items": {
+                        "description": "A list of items.",
+                        "example": "Bad Request",
+                        "type": "string"
+                      },
+                      "type": "array"
+                    }
+                  },
+                  "required": [
+                    "errors"
+                  ],
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Too many requests"
+          }
+        },
+        "summary": "Create a new pipeline",
+        "tags": [
+          "Observability Pipelines"
+        ],
+        "x-menu-order": 2,
+        "x-undo": {
+          "type": "safe"
+        }
+      }
+    },
+    "/api/v2/remote_config/products/obs_pipelines/pipelines/{pipeline_id}": {
+      "delete": {
+        "description": "Deletes a specific observability pipeline.",
+        "operationId": "DeletePipeline",
+        "parameters": [
+          {
+            "description": "The ID of the pipeline to delete.",
+            "in": "path",
+            "name": "pipeline_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Pipeline deleted"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "429": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "API error response.",
+                  "properties": {
+                    "errors": {
+                      "description": "A list of errors.",
+                      "example": [
+                        "Bad Request"
+                      ],
+                      "items": {
+                        "description": "A list of items.",
+                        "example": "Bad Request",
+                        "type": "string"
+                      },
+                      "type": "array"
+                    }
+                  },
+                  "required": [
+                    "errors"
+                  ],
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Too many requests"
+          }
+        },
+        "summary": "Delete a specific pipeline",
+        "tags": [
+          "Observability Pipelines"
+        ],
+        "x-menu-order": 4,
+        "x-undo": {
+          "type": "safe"
+        }
+      },
+      "get": {
+        "description": "Retrieves a specific observability pipeline.",
+        "operationId": "GetPipeline",
+        "parameters": [
+          {
+            "description": "The ID of the pipeline to retrieve.",
+            "in": "path",
+            "name": "pipeline_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "A pipeline definition.",
+                  "properties": {
+                    "data": {
+                      "description": "The definition of `PipelineData` object.",
+                      "properties": {
+                        "attributes": {
+                          "description": "pipeline attributes",
+                          "properties": {
+                            "config": {
+                              "description": "pipeline config",
+                              "properties": {
+                                "destinations": {
+                                  "description": "The `PipelineDataAttributesConfig` `destinations`.",
+                                  "example": [],
+                                  "items": {
+                                    "description": "The `config` `destinations`.",
+                                    "oneOf": [
+                                      {
+                                        "description": "A Datadog Logs destination component.",
+                                        "properties": {
+                                          "id": {
+                                            "description": "The unique ID of the destination.",
+                                            "example": "destination-0",
+                                            "type": "string"
+                                          },
+                                          "type": {
+                                            "default": "datadog_logs",
+                                            "description": "The type of destination.",
+                                            "enum": [
+                                              "datadog_logs"
+                                            ],
+                                            "example": "datadog_logs",
+                                            "type": "string",
+                                            "x-enum-varnames": [
+                                              "DATADOG_LOGS"
+                                            ]
+                                          }
+                                        },
+                                        "required": [
+                                          "id",
+                                          "type"
+                                        ],
+                                        "type": "object"
+                                      }
+                                    ]
+                                  },
+                                  "type": "array"
+                                },
+                                "processors": {
+                                  "description": "The `PipelineDataAttributesConfig` `processors`.",
+                                  "example": [],
+                                  "items": {
+                                    "description": "The `config` `processors`.",
+                                    "oneOf": [
+                                      {
+                                        "description": "A filter processor component.",
+                                        "properties": {
+                                          "id": {
+                                            "description": "The unique ID of the processor.",
+                                            "example": "",
+                                            "type": "string"
+                                          },
+                                          "include": {
+                                            "description": "Inclusion filter for the processor.",
+                                            "example": "",
+                                            "type": "string"
+                                          },
+                                          "type": {
+                                            "description": "The type of processor.",
+                                            "enum": [
+                                              "filter"
+                                            ],
+                                            "example": "filter",
+                                            "type": "string",
+                                            "x-enum-varnames": [
+                                              "FILTER"
+                                            ]
+                                          }
+                                        },
+                                        "required": [
+                                          "id",
+                                          "type",
+                                          "include"
+                                        ],
+                                        "type": "object"
+                                      }
+                                    ]
+                                  },
+                                  "type": "array"
+                                },
+                                "sources": {
+                                  "description": "The `PipelineDataAttributesConfig` `sources`.",
+                                  "example": [],
+                                  "items": {
+                                    "description": "The `config` `sources`.",
+                                    "oneOf": [
+                                      {
+                                        "description": "A Datadog Agent source component.",
+                                        "properties": {
+                                          "id": {
+                                            "description": "The unique ID of the source.",
+                                            "example": "source-0",
+                                            "type": "string"
+                                          },
+                                          "tls": {
+                                            "description": "TLS settings",
+                                            "properties": {
+                                              "ca_file": {
+                                                "description": "CA file",
+                                                "example": "my_ca_file",
+                                                "type": "string"
+                                              },
+                                              "crt_file": {
+                                                "description": "CRT file",
+                                                "example": "my_crt_file",
+                                                "type": "string"
+                                              },
+                                              "key_file": {
+                                                "description": "Key file",
+                                                "example": "my_key_file",
+                                                "type": "string"
+                                              }
+                                            },
+                                            "required": [
+                                              "crt_file"
+                                            ],
+                                            "type": "object"
+                                          },
+                                          "type": {
+                                            "default": "datadog_agent",
+                                            "description": "The type of source.",
+                                            "enum": [
+                                              "datadog_agent"
+                                            ],
+                                            "example": "datadog_agent",
+                                            "type": "string",
+                                            "x-enum-varnames": [
+                                              "DATADOG_AGENT"
+                                            ]
+                                          }
+                                        },
+                                        "required": [
+                                          "id",
+                                          "type"
+                                        ],
+                                        "type": "object"
+                                      }
+                                    ]
+                                  },
+                                  "type": "array"
+                                }
+                              },
+                              "required": [
+                                "sources",
+                                "processors",
+                                "destinations"
+                              ],
+                              "type": "object"
+                            },
+                            "name": {
+                              "description": "The pipeline name.",
+                              "example": "",
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "name",
+                            "config"
+                          ],
+                          "type": "object"
+                        },
+                        "id": {
+                          "description": "Pipeline ID",
+                          "example": "e8890e15-053e-4d34-9404-1b41b9e403e2",
+                          "type": "string"
+                        },
+                        "type": {
+                          "description": "The type of the resource. The value should always be pipeline.",
+                          "example": "pipeline",
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "type",
+                        "attributes"
+                      ],
+                      "type": "object"
+                    }
+                  },
+                  "required": [
+                    "data"
+                  ],
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Details of a pipeline"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "429": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "API error response.",
+                  "properties": {
+                    "errors": {
+                      "description": "A list of errors.",
+                      "example": [
+                        "Bad Request"
+                      ],
+                      "items": {
+                        "description": "A list of items.",
+                        "example": "Bad Request",
+                        "type": "string"
+                      },
+                      "type": "array"
+                    }
+                  },
+                  "required": [
+                    "errors"
+                  ],
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Too many requests"
+          }
+        },
+        "summary": "Get a specific pipeline",
+        "tags": [
+          "Observability Pipelines"
+        ],
+        "x-menu-order": 3,
+        "x-undo": {
+          "type": "safe"
+        }
+      },
+      "put": {
+        "description": "Updates a specific observability pipeline.",
+        "operationId": "UpdatePipeline",
+        "parameters": [
+          {
+            "description": "The ID of the pipeline to update.",
+            "in": "path",
+            "name": "pipeline_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "description": "A pipeline definition.",
+                "properties": {
+                  "data": {
+                    "description": "The definition of `PipelineData` object.",
+                    "properties": {
+                      "attributes": {
+                        "description": "pipeline attributes",
+                        "properties": {
+                          "config": {
+                            "description": "pipeline config",
+                            "properties": {
+                              "destinations": {
+                                "description": "The `PipelineDataAttributesConfig` `destinations`.",
+                                "example": [],
+                                "items": {
+                                  "description": "The `config` `destinations`.",
+                                  "oneOf": [
+                                    {
+                                      "description": "A Datadog Logs destination component.",
+                                      "properties": {
+                                        "id": {
+                                          "description": "The unique ID of the destination.",
+                                          "example": "destination-0",
+                                          "type": "string"
+                                        },
+                                        "type": {
+                                          "default": "datadog_logs",
+                                          "description": "The type of destination.",
+                                          "enum": [
+                                            "datadog_logs"
+                                          ],
+                                          "example": "datadog_logs",
+                                          "type": "string",
+                                          "x-enum-varnames": [
+                                            "DATADOG_LOGS"
+                                          ]
+                                        }
+                                      },
+                                      "required": [
+                                        "id",
+                                        "type"
+                                      ],
+                                      "type": "object"
+                                    }
+                                  ]
+                                },
+                                "type": "array"
+                              },
+                              "processors": {
+                                "description": "The `PipelineDataAttributesConfig` `processors`.",
+                                "example": [],
+                                "items": {
+                                  "description": "The `config` `processors`.",
+                                  "oneOf": [
+                                    {
+                                      "description": "A filter processor component.",
+                                      "properties": {
+                                        "id": {
+                                          "description": "The unique ID of the processor.",
+                                          "example": "",
+                                          "type": "string"
+                                        },
+                                        "include": {
+                                          "description": "Inclusion filter for the processor.",
+                                          "example": "",
+                                          "type": "string"
+                                        },
+                                        "type": {
+                                          "description": "The type of processor.",
+                                          "enum": [
+                                            "filter"
+                                          ],
+                                          "example": "filter",
+                                          "type": "string",
+                                          "x-enum-varnames": [
+                                            "FILTER"
+                                          ]
+                                        }
+                                      },
+                                      "required": [
+                                        "id",
+                                        "type",
+                                        "include"
+                                      ],
+                                      "type": "object"
+                                    }
+                                  ]
+                                },
+                                "type": "array"
+                              },
+                              "sources": {
+                                "description": "The `PipelineDataAttributesConfig` `sources`.",
+                                "example": [],
+                                "items": {
+                                  "description": "The `config` `sources`.",
+                                  "oneOf": [
+                                    {
+                                      "description": "A Datadog Agent source component.",
+                                      "properties": {
+                                        "id": {
+                                          "description": "The unique ID of the source.",
+                                          "example": "source-0",
+                                          "type": "string"
+                                        },
+                                        "tls": {
+                                          "description": "TLS settings",
+                                          "properties": {
+                                            "ca_file": {
+                                              "description": "CA file",
+                                              "example": "my_ca_file",
+                                              "type": "string"
+                                            },
+                                            "crt_file": {
+                                              "description": "CRT file",
+                                              "example": "my_crt_file",
+                                              "type": "string"
+                                            },
+                                            "key_file": {
+                                              "description": "Key file",
+                                              "example": "my_key_file",
+                                              "type": "string"
+                                            }
+                                          },
+                                          "required": [
+                                            "crt_file"
+                                          ],
+                                          "type": "object"
+                                        },
+                                        "type": {
+                                          "default": "datadog_agent",
+                                          "description": "The type of source.",
+                                          "enum": [
+                                            "datadog_agent"
+                                          ],
+                                          "example": "datadog_agent",
+                                          "type": "string",
+                                          "x-enum-varnames": [
+                                            "DATADOG_AGENT"
+                                          ]
+                                        }
+                                      },
+                                      "required": [
+                                        "id",
+                                        "type"
+                                      ],
+                                      "type": "object"
+                                    }
+                                  ]
+                                },
+                                "type": "array"
+                              }
+                            },
+                            "required": [
+                              "sources",
+                              "processors",
+                              "destinations"
+                            ],
+                            "type": "object"
+                          },
+                          "name": {
+                            "description": "The pipeline name.",
+                            "example": "",
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "name",
+                          "config"
+                        ],
+                        "type": "object"
+                      },
+                      "id": {
+                        "description": "Pipeline ID",
+                        "example": "e8890e15-053e-4d34-9404-1b41b9e403e2",
+                        "type": "string"
+                      },
+                      "type": {
+                        "description": "The type of the resource. The value should always be pipeline.",
+                        "example": "pipeline",
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "type",
+                      "attributes"
+                    ],
+                    "type": "object"
+                  }
+                },
+                "required": [
+                  "data"
+                ],
+                "type": "object"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "A pipeline definition.",
+                  "properties": {
+                    "data": {
+                      "description": "The definition of `PipelineData` object.",
+                      "properties": {
+                        "attributes": {
+                          "description": "pipeline attributes",
+                          "properties": {
+                            "config": {
+                              "description": "pipeline config",
+                              "properties": {
+                                "destinations": {
+                                  "description": "The `PipelineDataAttributesConfig` `destinations`.",
+                                  "example": [],
+                                  "items": {
+                                    "description": "The `config` `destinations`.",
+                                    "oneOf": [
+                                      {
+                                        "description": "A Datadog Logs destination component.",
+                                        "properties": {
+                                          "id": {
+                                            "description": "The unique ID of the destination.",
+                                            "example": "destination-0",
+                                            "type": "string"
+                                          },
+                                          "type": {
+                                            "default": "datadog_logs",
+                                            "description": "The type of destination.",
+                                            "enum": [
+                                              "datadog_logs"
+                                            ],
+                                            "example": "datadog_logs",
+                                            "type": "string",
+                                            "x-enum-varnames": [
+                                              "DATADOG_LOGS"
+                                            ]
+                                          }
+                                        },
+                                        "required": [
+                                          "id",
+                                          "type"
+                                        ],
+                                        "type": "object"
+                                      }
+                                    ]
+                                  },
+                                  "type": "array"
+                                },
+                                "processors": {
+                                  "description": "The `PipelineDataAttributesConfig` `processors`.",
+                                  "example": [],
+                                  "items": {
+                                    "description": "The `config` `processors`.",
+                                    "oneOf": [
+                                      {
+                                        "description": "A filter processor component.",
+                                        "properties": {
+                                          "id": {
+                                            "description": "The unique ID of the processor.",
+                                            "example": "",
+                                            "type": "string"
+                                          },
+                                          "include": {
+                                            "description": "Inclusion filter for the processor.",
+                                            "example": "",
+                                            "type": "string"
+                                          },
+                                          "type": {
+                                            "description": "The type of processor.",
+                                            "enum": [
+                                              "filter"
+                                            ],
+                                            "example": "filter",
+                                            "type": "string",
+                                            "x-enum-varnames": [
+                                              "FILTER"
+                                            ]
+                                          }
+                                        },
+                                        "required": [
+                                          "id",
+                                          "type",
+                                          "include"
+                                        ],
+                                        "type": "object"
+                                      }
+                                    ]
+                                  },
+                                  "type": "array"
+                                },
+                                "sources": {
+                                  "description": "The `PipelineDataAttributesConfig` `sources`.",
+                                  "example": [],
+                                  "items": {
+                                    "description": "The `config` `sources`.",
+                                    "oneOf": [
+                                      {
+                                        "description": "A Datadog Agent source component.",
+                                        "properties": {
+                                          "id": {
+                                            "description": "The unique ID of the source.",
+                                            "example": "source-0",
+                                            "type": "string"
+                                          },
+                                          "tls": {
+                                            "description": "TLS settings",
+                                            "properties": {
+                                              "ca_file": {
+                                                "description": "CA file",
+                                                "example": "my_ca_file",
+                                                "type": "string"
+                                              },
+                                              "crt_file": {
+                                                "description": "CRT file",
+                                                "example": "my_crt_file",
+                                                "type": "string"
+                                              },
+                                              "key_file": {
+                                                "description": "Key file",
+                                                "example": "my_key_file",
+                                                "type": "string"
+                                              }
+                                            },
+                                            "required": [
+                                              "crt_file"
+                                            ],
+                                            "type": "object"
+                                          },
+                                          "type": {
+                                            "default": "datadog_agent",
+                                            "description": "The type of source.",
+                                            "enum": [
+                                              "datadog_agent"
+                                            ],
+                                            "example": "datadog_agent",
+                                            "type": "string",
+                                            "x-enum-varnames": [
+                                              "DATADOG_AGENT"
+                                            ]
+                                          }
+                                        },
+                                        "required": [
+                                          "id",
+                                          "type"
+                                        ],
+                                        "type": "object"
+                                      }
+                                    ]
+                                  },
+                                  "type": "array"
+                                }
+                              },
+                              "required": [
+                                "sources",
+                                "processors",
+                                "destinations"
+                              ],
+                              "type": "object"
+                            },
+                            "name": {
+                              "description": "The pipeline name.",
+                              "example": "",
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "name",
+                            "config"
+                          ],
+                          "type": "object"
+                        },
+                        "id": {
+                          "description": "Pipeline ID",
+                          "example": "e8890e15-053e-4d34-9404-1b41b9e403e2",
+                          "type": "string"
+                        },
+                        "type": {
+                          "description": "The type of the resource. The value should always be pipeline.",
+                          "example": "pipeline",
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "type",
+                        "attributes"
+                      ],
+                      "type": "object"
+                    }
+                  },
+                  "required": [
+                    "data"
+                  ],
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Pipeline updated"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "429": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "API error response.",
+                  "properties": {
+                    "errors": {
+                      "description": "A list of errors.",
+                      "example": [
+                        "Bad Request"
+                      ],
+                      "items": {
+                        "description": "A list of items.",
+                        "example": "Bad Request",
+                        "type": "string"
+                      },
+                      "type": "array"
+                    }
+                  },
+                  "required": [
+                    "errors"
+                  ],
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Too many requests"
+          }
+        },
+        "summary": "Update a specific pipeline",
+        "tags": [
+          "Observability Pipelines"
+        ],
+        "x-menu-order": 3,
+        "x-undo": {
+          "type": "safe"
+        }
+      }
+    },
     "/api/v2/restriction_policy/{resource_id}": {
       "delete": {
         "description": "Deletes the restriction policy associated with a specified resource.",
@@ -447253,6 +449587,14 @@
     {
       "description": "The Network Device Monitoring API allows you to fetch devices and interfaces and their attributes. See the [Network Device Monitoring page](https://docs.datadoghq.com/network_monitoring/) for more information.",
       "name": "Network Device Monitoring"
+    },
+    {
+      "description": "Observability Pipelines are awesome!",
+      "externalDocs": {
+        "description": "Find out more at",
+        "url": "https://docs.datadoghq.com/observability_pipelines/"
+      },
+      "name": "Observability Pipelines"
     },
     {
       "description": "Configure your [Datadog Okta integration](https://docs.datadoghq.com/integrations/okta/) directly through the Datadog API.",
